@@ -1,3 +1,16 @@
 .Home-heading{
-    
+    color: rgb(141, 35, 136);
+    font-size: 24px;
+    font-weight: bold;
+}
+.Home-greeting{
+    font-size: 20px;
+    margin: 0;    
+}
+.home-logout{
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 15px;
 }
