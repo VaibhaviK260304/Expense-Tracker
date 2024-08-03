@@ -39,7 +39,7 @@ const getTransactions = async(req, res)=>{
             data: null
         })
     }
-    const transactions = await Transaction.find({user: userId})
+    const transactions = await Transaction.find({user: userId}).sort({createdAt:-1});   //To put the recent transaction on the top of the list.
     res.json({
         success: true,
         message: 'Transactions retrieved successfully',

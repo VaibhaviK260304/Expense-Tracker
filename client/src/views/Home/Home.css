@@ -14,3 +14,36 @@
     cursor: pointer;
     font-size: 15px;
 }
+.net-transaction-value{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 10px auto;
+}
+.net-transaction-value-item{
+    text-align: center;
+    width: 180px;
+    border: 2px solid rgb(141, 35, 136);
+    padding: 5px;
+    border-radius: 5px;
+}
+.net-transaction-value-title{
+    display: block;
+    text-align: center;
+}
+.net-transaction-value-amount{
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+.transactions-container{
+    max-height: 300px;
+    overflow-y: scroll;
+}
+.add-transaction{
+    height: 50px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+}

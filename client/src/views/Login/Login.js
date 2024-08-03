@@ -28,7 +28,7 @@ function Login() {
             }
         } catch (error) {
             console.log('Login Error :', error);
-            toast.error('Error logging in. Please try again.');
+            toast.error(error.message);
         }
     };
 
