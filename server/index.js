@@ -35,7 +35,7 @@ app.post('/signup', async (req, res)=>{
         dob: new Date(dob)
     });
 
-    try{
+    try{                                       //try to save th api and if their is in error so send it to the catch block which displays the exact error message.
     const saveUser = await user.save()
 
     res.json({
@@ -57,10 +57,25 @@ app.post('/signup', async (req, res)=>{
 //API for Log In
 app.post('/login', (req, res)=>{
     const {email, password} = req.body;
-    const User = new User({
-        email,
-        password
+    
+    const user = User.findOne({
+        email: email,
+        password: password,
     });
+    if(user){
+        return res.json({
+            success: true,
+            message: 'User logged in successfully',
+            data: user
+        })
+    }
+    else{
+        return res.json({
+            success: false,
+            message: 'Invalid email or password',
+            data: null
+        })
+    }
 })
 
 const PORT = process.env.PPRT || 5000;
