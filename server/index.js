@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 import { postSignup, postLogin } from './contollers/user.js';
-import { postTransaction } from './contollers/transaction.js';
+import { postTransaction, getTransactions } from './contollers/transaction.js';
 
 //Connect to mogoDB
 const connectDB = async () => {
@@ -34,6 +34,7 @@ app.post('/login', postLogin)
 
 //API for Transaction 
 app.post('/transaction', postTransaction)
+app.get('/transactions', getTransactions)
 
 const PORT = process.env.PPRT || 5000;
 
