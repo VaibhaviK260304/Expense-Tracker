@@ -3,12 +3,12 @@ import mongoose, { Mongoose } from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
 dotenv.config();
-import User from './models/User.js';
-import Transaction from './models/Transaction.js'
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+import { postSignup, postLogin } from './contollers/user.js';
 
 //Connect to mogoDB
 const connectDB = async () => {
@@ -26,57 +26,10 @@ app.get('/', (req, res)=>{
 })
 
 //API for Sign Up
-app.post('/signup', async (req, res)=>{
-    const {name, email, password, dob} = req.body;
-    const user = new User({
-        name, 
-        email, 
-        password,
-        dob: new Date(dob)
-    });
-
-    try{                                       //try to save th api and if their is in error so send it to the catch block which displays the exact error message.
-    const saveUser = await user.save()
-
-    res.json({
-        success: true,
-        message: 'User created successfully',
-        data: saveUser
-    })
-    }
-    catch(e){
-        res.json({
-            success: false,
-            message: e.message,
-            data: null
-        })
-    }
-
-})
+app.post('/signup', postSignup )
 
 //API for Log In
-app.post('/login', (req, res)=>{
-    const {email, password} = req.body;
-    
-    const user = User.findOne({
-        email: email,
-        password: password,
-    });
-    if(user){
-        return res.json({
-            success: true,
-            message: 'User logged in successfully',
-            data: user
-        })
-    }
-    else{
-        return res.json({
-            success: false,
-            message: 'Invalid email or password',
-            data: null
-        })
-    }
-})
+app.post('/login', postLogin)
 
 const PORT = process.env.PPRT || 5000;
 
