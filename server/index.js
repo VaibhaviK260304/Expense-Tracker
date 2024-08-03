@@ -3,6 +3,8 @@ import mongoose, { Mongoose } from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
 dotenv.config();
+import User from './models/User.js';
+import Transaction from './models/Transaction.js'
 
 const app = express();
 app.use(express.json());
@@ -21,6 +23,44 @@ app.get('/', (req, res)=>{
     res.json({
         message: 'Welcome to expense tracker'
     })
+})
+
+//API for Sign Up
+app.post('/signup', async (req, res)=>{
+    const {name, email, password, dob} = req.body;
+    const user = new User({
+        name, 
+        email, 
+        password,
+        dob: new Date(dob)
+    });
+
+    try{
+    const saveUser = await user.save()
+
+    res.json({
+        success: true,
+        message: 'User created successfully',
+        data: saveUser
+    })
+    }
+    catch(e){
+        res.json({
+            success: false,
+            message: e.message,
+            data: null
+        })
+    }
+
+})
+
+//API for Log In
+app.post('/login', (req, res)=>{
+    const {email, password} = req.body;
+    const User = new User({
+        email,
+        password
+    });
 })
 
 const PORT = process.env.PPRT || 5000;
