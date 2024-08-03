@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import "./Signup.css"
 import axios from 'axios'
 import toast, {Toaster} from 'react-hot-toast'
+import { Link } from 'react-router-dom'
 
 function Signup() {
     const [user, setUser] = useState ({
@@ -39,8 +39,8 @@ function Signup() {
 
   return (
     <div>
-        <h1 className='signup-heading'>USER REGISTRATION</h1>
-        <form className='signup-form'> 
+        <h1 className='signup-login-heading'>USER REGISTRATION</h1>
+        <form className='signup-login-form'> 
             <input 
                 type='text' 
                 placeholder='Fullname' 
@@ -74,6 +74,7 @@ function Signup() {
                     REGISTER
             </button>
         </form>
+        <Link to='/login' className='signup-login-link'> Already have an account? LOGIN</Link>
         <Toaster/>
     </div>
   )
