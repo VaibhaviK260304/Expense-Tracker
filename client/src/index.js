@@ -26,6 +26,10 @@ const router = createBrowserRouter([
     path:'/add-transaction',
     element:<AddTransaction/>
   },
+  // {
+  //   path:'/transactions',
+
+  // },
   {
     path:'*',
     element: <h1>PAGE NOT FOUND</h1>

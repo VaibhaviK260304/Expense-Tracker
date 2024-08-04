@@ -4,18 +4,23 @@ import toast, {Toaster} from "react-hot-toast"
 
 function TransactionCard({_id, title, amount, category, type, createdAt, loadTransactions}) {
   
-    const deleteTransaction = async()=>{
-    try {
-        const response = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/transactions/${_id}`)   
-        toast.success(response.data.message)
-        loadTransactions()
+    const deletetransactions = async () => {
+        if (!_id) {
+          toast.error("Invalid transaction ID");
+          return;
+        }
+        try {
+          const response = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/transaction/${_id}`)
+          toast.success(response.data.message)
+          loadTransactions()
+        } catch (error) {
+          toast.error("Failed to delete transaction!")
+        }
+        setTimeout(() => {
+          window.location.href = '/'
+        }, 1000);
     }
-    catch (error) {
-        toast.error(error.message);
-        console.error("There was an error!", error);
-      }
-    };
-  
+
     return (
     <div className="transaction-card">
         <h1 className="transaction-card-title">
@@ -39,7 +44,7 @@ function TransactionCard({_id, title, amount, category, type, createdAt, loadTra
             {amount}
         </span>
 
-        <button className="delete-transaction-btn" onClick={deleteTransaction}>
+        <button className="delete-transaction-btn" onClick={deletetransactions}>
             DELETE
         </button>
         <Toaster/>
