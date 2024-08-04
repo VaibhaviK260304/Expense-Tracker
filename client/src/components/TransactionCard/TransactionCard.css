@@ -30,4 +30,18 @@
     padding: 2px 8px;
     border-radius: 25px;
 }
+.delete-transaction-btn{
+    background-color: black;
+    color: white;
+    font-size: 10px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-left: 30px;
+    cursor: pointer;
+    border: none;
+}
+.delete-transaction-btn:hover{
+    background-color: rgb(141, 35, 136);
+    /* font-size: 11px; */
+}
 
