@@ -65,8 +65,8 @@ useEffect(()=>{
 
 
   return (
-    <div>
-      <h1 className="Home-greeting">Hello!! {user.name}</h1>
+    <div className="home-body">
+      <h1 className="Home-greeting">Hello!!</h1>
       <h2 className="Home-heading">Your Transaction History :</h2>
 
       <span className="home-logout" onClick={()=>{
@@ -78,7 +78,7 @@ useEffect(()=>{
         }, 3000)
 
       }}>
-        LOGOUT
+        <h5 style={{fontStyle:"italic", margin:"10px"}}>LOGOUT</h5>
       </span>
 
       <div className="net-transaction-value">
