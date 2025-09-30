@@ -1,8 +1,8 @@
+dotenv.config();
 import express from 'express'
 import mongoose, { Mongoose } from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
-dotenv.config();
 
 const app = express();
 app.use(express.json());
@@ -13,6 +13,7 @@ import { postTransaction, getTransactions, deleteTransaction } from './contoller
 
 //Connect to mogoDB
 const connectDB = async () => {
+    // We already confirmed process.env.MONGO_URI is the variable you want
     const connect = await mongoose.connect(process.env.MONGO_URI,)
     if(connect){
         console.log('MongoDB connected')
