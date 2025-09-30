@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expense-tracker-server-deployment
+  labels:
+    app: expense-tracker
+    component: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: expense-tracker
+      component: server
+  template:
+    metadata:
+      labels:
+        app: expense-tracker
+        component: server
+    spec:
+      containers:
+      - name: expense-tracker-server
+        image: expense-tracker:v1
+        imagePullPolicy: Never 
+        ports:
+        - containerPort: 5000
+        env:
+          
+        - name: MONGO_URI
+          value: "mongodb+srv://usertracker:YOUR_ACTUAL_PASSWORD@cluster0.ir8onal.mongodb.net/expense-trackerdb?retryWrites=true&w=majority&appName=Cluster0"
+          
+        - name: PORT
+          value: "5000"
