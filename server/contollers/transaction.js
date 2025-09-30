@@ -47,14 +47,43 @@ const getTransactions = async(req, res)=>{
     })
 }
 
+// const deleteTransaction = async (req, res) => {
+//     try {
+//         const id = req.params.id;
+//         await Transaction.deleteOne({ _id: id });
+//         res.json({ success: true, message: "Transaction deleted successfully", data : null });
+//     }
+//     catch (error) {
+//         res.json({ success: false, message: error.message });
+//     }
+// }
+
+// export {postTransaction, getTransactions, deleteTransaction}
 const deleteTransaction = async (req, res) => {
     try {
         const id = req.params.id;
-        await Transaction.deleteOne({ _id: id });
-        res.json({ success: true, message: "Transaction deleted successfully", data : null });
+        
+        // 1. Check if the ID parameter exists
+        if (!id) {
+            return res.status(400).json({ success: false, message: "Transaction ID is required." });
+        }
+
+        // 2. Use findByIdAndDelete. This is the standard, clean method.
+        // It relies on Mongoose to handle the ID casting. If the front-end is sending 
+        // a bad ID, Mongoose should return an error that your catch block handles.
+        const result = await Transaction.findByIdAndDelete(id);
+
+        if (!result) {
+            return res.status(404).json({ success: false, message: "Transaction not found or invalid ID format." });
+        }
+
+        res.json({ success: true, message: "Transaction deleted successfully", data: null });
     }
     catch (error) {
-        res.json({ success: false, message: error.message });
+        // This catch block will handle the Mongoose CastError ("Invalid ID")
+        // and any other database errors.
+        console.error("Delete Error:", error.message);
+        res.status(500).json({ success: false, message: "Failed to delete transaction: " + error.message });
     }
 }
 

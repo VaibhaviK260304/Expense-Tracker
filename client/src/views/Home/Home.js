@@ -113,23 +113,23 @@ useEffect(()=>{
       
 
       <div className="transactions-container">
-      {
-        transactions.map((transaction)=>{
-          const {_id, title, amount, category, type, createdAt} = transaction
-                    
-          return (<TransactionCard
-            key={_id}
-            id={_id}
-            title={title}
-            amount={amount}
-            category={category}
-            type={type}
-            createdAt={createdAt}
-            loadTransactions={loadTransactions}
-          />)
-        })
-      }
-      </div>
+      {
+        transactions.map((transaction)=>{
+          const {_id, title, amount, category, type, createdAt} = transaction
+                    
+          return (<TransactionCard
+            key={_id}
+            _id={_id}  // <--- FIX: Changed 'id' to '_id' to match child component
+            title={title}
+            amount={amount}
+            category={category}
+            type={type}
+            createdAt={createdAt}
+            loadTransactions={loadTransactions}
+          />)
+        })
+      }
+      </div>
       <Link to='/add-transaction'>
       <img src={ImgAdd} alt="Add Transaction" className="add-transaction"/>
       </Link>
