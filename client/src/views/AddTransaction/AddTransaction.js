@@ -1,4 +1,5 @@
 import axios from "axios";
+import API_BASE_URL from "../../config";
 import "./AddTransaction.css"
 import { useState, useEffect } from 'react';
 import toast, {Toaster} from "react-hot-toast";
@@ -28,7 +29,7 @@ function AddTransaction() {
   },[])
 
   const addTransaction = async()=>{
-    const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/transaction`,{
+    const response = await axios.post(`${API_BASE_URL}/transaction`,{
       user:user._id,
       title:title,
       amount:amount,

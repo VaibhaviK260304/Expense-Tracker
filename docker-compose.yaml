@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  frontend:
+    # Use the new :v18 image which contains all client-side fixes
+    image: vaibhavik26/expense-tracker-ui:v18
+    ports:
+      - "8080:80" # Access the app at http://localhost:8080
+    networks:
+      - expense-network
+    deploy:
+      replicas: 1
+
+  backend: # This service name MUST be 'backend' to match Nginx
+    # CRITICAL FIX: Use the new :v9 image containing the CORS fix
+    image: vaibhavik26/expense-tracker-api:v9
+    environment:
+      NODE_ENV: production
+      # This is your correct, working MongoDB URI
+      MONGO_URI: "mongodb+srv://kumbhalkarvaibhavi:usertracker@cluster0.dosggbt.mongodb.net/expense-trackerdb?retryWrites=true&w=majority&appName=Cluster0"
+    networks:
+      - expense-network
+    deploy:
+      replicas: 1
+
+networks:
+  expense-network:
+    driver: overlay

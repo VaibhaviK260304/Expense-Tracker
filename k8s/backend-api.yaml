@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expense-api-deployment
+  labels:
+    app: expense-tracker
+    tier: backend
+spec:
+  # Load Balancing: Kubernetes will ensure 3 replicas (Pods) of the API are running.
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: expense-tracker
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: expense-tracker
+        tier: backend
+    spec:
+      containers:
+      - name: server
+        # *** IMPORTANT: REPLACE THIS PLACEHOLDER ***
+        image: vaibhavik26/expense-tracker-server:v9 
+        ports:
+        - containerPort: 8080 # <-- FIX 1: Container listens on 8080 (standard HTTP)
+        # Use environment variables to pass secrets like the MongoDB URI
+        env:
+        - name: MONGODB_URI
+          value: "mongodb+srv://usertracker:usertracker@cluster0.ir8onal.mongodb.net/expense-trackerdb?retryWrites=true&w=majority&appName=Cluster0" 
+---
+# Service to expose the Backend Deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-api-service 
+spec:
+  selector:
+    app: expense-tracker
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 8080       # Service port (used internally)
+      targetPort: 8080 # Target container port
+      nodePort: 30008  # <--- NEW PORT TO BYPASS LOCK
+  type: NodePort       # <-- FIX 2: Service type must be NodePort

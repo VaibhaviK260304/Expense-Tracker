@@ -23,10 +23,7 @@ spec:
         imagePullPolicy: Never 
         ports:
         - containerPort: 5000
-        env:
-          
-        - name: MONGO_URI
-          value: "mongodb+srv://usertracker:YOUR_ACTUAL_PASSWORD@cluster0.ir8onal.mongodb.net/expense-trackerdb?retryWrites=true&w=majority&appName=Cluster0"
-          
-        - name: PORT
-          value: "5000"
+        # --- Inject environment variables from the Secret ---
+        envFrom:
+        - secretRef:
+            name: mongo-uri-secret # References the secret created in Step 1

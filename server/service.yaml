@@ -1,0 +1,24 @@
+# Kubernetes Service for the Expense Tracker Backend
+# This service exposes the Node.js server (Port 5000) externally on Minikube
+apiVersion: v1
+kind: Service
+metadata:
+  name: expense-tracker-server-service
+  labels:
+    app: expense-tracker
+    component: server
+spec:
+  # Use NodePort to expose the service on a port accessible from outside Minikube
+  type: NodePort
+  selector:
+    # This selector links the Service to the Pods created by the Deployment
+    app: expense-tracker
+    component: server
+  ports:
+    # Port 5000 is the internal container port
+    - port: 5000
+      # TargetPort must match the containerPort exposed in the Deployment (5000)
+      targetPort: 5000
+      # NodePort is the external port on the Minikube IP
+      # We chose 30007 for predictable access
+      nodePort: 30007 

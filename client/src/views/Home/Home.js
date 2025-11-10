@@ -2,6 +2,7 @@ import "./Home.css"
 import React, { useEffect, useState } from 'react'
 import toast, {Toaster} from 'react-hot-toast'
 import axios from 'axios'
+import API_BASE_URL from '../../config'
 import TransactionCard from "../../components/TransactionCard/TransactionCard"
 import ImgAdd from "./add.png"
 import {Link} from 'react-router-dom'
@@ -34,7 +35,7 @@ function Home() {
     }
     toast.loading('Loading Transactions...')
 
-    const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/transactions?userId=${user._id}`)
+    const response = await axios.get(`${API_BASE_URL}/transactions?userId=${user._id}`)
 
     const allTransaction = response.data.data
 

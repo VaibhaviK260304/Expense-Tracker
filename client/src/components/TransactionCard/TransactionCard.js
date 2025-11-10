@@ -1,5 +1,6 @@
 import "./TransactionCard.css"
 import axios from "axios"
+import API_BASE_URL from "../../config"
 import toast, {Toaster} from "react-hot-toast"
 
 function TransactionCard({_id, title, amount, category, type, createdAt, loadTransactions}) {
@@ -10,7 +11,7 @@ function TransactionCard({_id, title, amount, category, type, createdAt, loadTra
           return;
         }
         try {
-          const response = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/transaction/${_id}`)
+          const response = await axios.delete(`${API_BASE_URL}/transaction/${_id}`)
           toast.success(response.data.message)
           loadTransactions()
         } catch (error) {
