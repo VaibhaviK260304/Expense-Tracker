@@ -3,16 +3,13 @@ kind: Ingress
 metadata:
   name: expense-tracker-ingress
   annotations:
-    # This specifies that the Nginx Ingress Controller should handle these rules
     kubernetes.io/ingress.class: "nginx" 
-    # CRITICAL: This annotation removes the '/api' prefix before sending the request 
-    # to the backend service, which expects /login, not /api/login.
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
   - http:
       paths:
-      # 1. Backend Route: All API calls go to the Express service
+
       - path: /api(/|$)(.*) # Matches /api/anything and captures the rest in $2
         pathType: ImplementationSpecific
         backend:
@@ -21,11 +18,10 @@ spec:
             port:
               number: 8080
       
-      # 2. Frontend Route (Default): All other traffic goes to the React UI
       - path: /
         pathType: Prefix
         backend:
           service:
             name: frontend-ui-service
             port:
-              number: 80 # The frontend service port
+              number: 80 

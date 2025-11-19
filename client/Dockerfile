@@ -14,12 +14,10 @@ RUN npm install
 COPY . .
 
 # Build the application
-# This creates the production-ready static assets in the 'build' folder
 RUN npm run build
 
 
-# --- STAGE 2: Serve the Application using Nginx ---
-# Use the official Nginx image (often more resilient to certain network issues)
+# Use the official Nginx image 
 FROM nginx:alpine
 
 # Copy the build output from the builder stage to the Nginx serving path
